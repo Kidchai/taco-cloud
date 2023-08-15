@@ -1,22 +1,18 @@
 package com.kidchai.tacocloud.web;
 
 
-import java.util.List;
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.ui.Model;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
-
-import com.kidchai.tacocloud.Taco;
-import com.kidchai.tacocloud.TacoOrder;
 import com.kidchai.tacocloud.Ingredient;
 import com.kidchai.tacocloud.Ingredient.Type;
+import com.kidchai.tacocloud.Taco;
+import com.kidchai.tacocloud.TacoOrder;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -61,8 +57,14 @@ public class DesignTacoController {
         return "design";
     }
 
-    private Iterable<Ingredient> filterByType(
-            List<Ingredient> ingredients, Type type) {
+    @PostMapping
+    public String processTaco(Taco taco, @ModelAttribute TacoOrder tacoOrder) {
+        tacoOrder.addTaco(taco);
+        log.info("Processing taco: {}", taco);
+        return "redirect:/orders/current";
+    }
+
+    private Iterable<Ingredient> filterByType(List<Ingredient> ingredients, Type type) {
         return ingredients
                 .stream()
                 .filter(x -> x.getType().equals(type))
