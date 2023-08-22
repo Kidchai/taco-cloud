@@ -3,6 +3,7 @@ package com.kidchai.tacocloud.data;
 import com.kidchai.tacocloud.Ingredient;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +15,7 @@ public class JdbcIngredientRepository implements IngredientRepository {
 
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
     public JdbcIngredientRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -24,16 +26,22 @@ public class JdbcIngredientRepository implements IngredientRepository {
                 "select id, name, type from Ingredient",
                 this::mapRowToIngredient);
     }
-
     @Override
     public Optional<Ingredient> findById(String id) {
         List<Ingredient> results = jdbcTemplate.query(
                 "select id, name, type from Ingredient where id=?",
                 this::mapRowToIngredient,
                 id);
-        return results.isEmpty() ?
+        return results.size() == 0 ?
                 Optional.empty() :
                 Optional.of(results.get(0));
+    }
+    private Ingredient mapRowToIngredient(ResultSet row, int rowNum)
+            throws SQLException {
+        return new Ingredient(
+                row.getString("id"),
+                row.getString("name"),
+                Ingredient.Type.valueOf(row.getString("type")));
     }
 
     @Override
@@ -44,13 +52,5 @@ public class JdbcIngredientRepository implements IngredientRepository {
                 ingredient.getName(),
                 ingredient.getType().toString());
         return ingredient;
-    }
-
-    private Ingredient mapRowToIngredient(ResultSet row, int rowNum)
-            throws SQLException {
-        return new Ingredient(
-                row.getString("id"),
-                row.getString("name"),
-                Ingredient.Type.valueOf(row.getString("type")));
     }
 }
