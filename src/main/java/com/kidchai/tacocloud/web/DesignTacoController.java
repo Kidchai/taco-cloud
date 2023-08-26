@@ -6,6 +6,7 @@ import com.kidchai.tacocloud.Ingredient.Type;
 import com.kidchai.tacocloud.Taco;
 import com.kidchai.tacocloud.TacoOrder;
 import com.kidchai.tacocloud.data.IngredientRepository;
+import com.kidchai.tacocloud.util.TacoUDRUtils;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,7 @@ public class DesignTacoController {
         if (errors.hasErrors())
             return "design";
 
-        tacoOrder.addTaco(taco);
+        tacoOrder.addTaco(TacoUDRUtils.toTacoUDT(taco));
         log.info("Processing taco: {}", taco);
         return "redirect:/orders/current";
     }
