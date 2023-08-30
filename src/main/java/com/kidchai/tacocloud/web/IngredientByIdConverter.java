@@ -1,6 +1,6 @@
 package com.kidchai.tacocloud.web;
 
-import com.kidchai.tacocloud.Ingredient;
+import com.kidchai.tacocloud.models.Ingredient;
 import com.kidchai.tacocloud.data.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;

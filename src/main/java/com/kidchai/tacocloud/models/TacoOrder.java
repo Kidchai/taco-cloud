@@ -1,4 +1,4 @@
-package com.kidchai.tacocloud;
+package com.kidchai.tacocloud.models;
 
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;

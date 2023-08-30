@@ -1,10 +1,10 @@
 package com.kidchai.tacocloud.web;
 
 
-import com.kidchai.tacocloud.Ingredient;
-import com.kidchai.tacocloud.Ingredient.Type;
-import com.kidchai.tacocloud.Taco;
-import com.kidchai.tacocloud.TacoOrder;
+import com.kidchai.tacocloud.models.Ingredient;
+import com.kidchai.tacocloud.models.Ingredient.Type;
+import com.kidchai.tacocloud.models.Taco;
+import com.kidchai.tacocloud.models.TacoOrder;
 import com.kidchai.tacocloud.data.IngredientRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;

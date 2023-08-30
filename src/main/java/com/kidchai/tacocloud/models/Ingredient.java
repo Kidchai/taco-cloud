@@ -1,4 +1,4 @@
-package com.kidchai.tacocloud;
+package com.kidchai.tacocloud.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

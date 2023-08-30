@@ -1,6 +1,6 @@
 package com.kidchai.tacocloud.web;
 
-import com.kidchai.tacocloud.TacoOrder;
+import com.kidchai.tacocloud.models.TacoOrder;
 import com.kidchai.tacocloud.data.OrderRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
