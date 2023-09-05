@@ -42,9 +42,6 @@ public class SecurityConfig {
                         .anyRequest().permitAll())
                 .oauth2Login(withDefaults())
                 .formLogin(withDefaults()
-//                .formLogin(form -> form
-//                        .loginPage("/login")
-//                        .defaultSuccessUrl("/design")
         );
         return http.build();
     }
