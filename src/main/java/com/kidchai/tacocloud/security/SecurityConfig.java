@@ -11,6 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 public class SecurityConfig {
     @Bean
@@ -38,9 +40,11 @@ public class SecurityConfig {
                         .requestMatchers("/login", "/registration").permitAll()
                         .requestMatchers("/design", "/orders").hasRole("USER")
                         .anyRequest().permitAll())
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/design")
+                .oauth2Login(withDefaults())
+                .formLogin(withDefaults()
+//                .formLogin(form -> form
+//                        .loginPage("/login")
+//                        .defaultSuccessUrl("/design")
         );
         return http.build();
     }
