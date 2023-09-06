@@ -11,8 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 @Configuration
 public class SecurityConfig {
     @Bean
@@ -33,16 +31,19 @@ public class SecurityConfig {
         };
     }
 
+
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/login", "/registration").permitAll()
-                        .requestMatchers("/design", "/orders").hasRole("USER")
-                        .anyRequest().permitAll())
-                .oauth2Login(withDefaults())
-                .formLogin(withDefaults()
-        );
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        http.authorizeHttpRequests(authorizeHttpRequests -> {
+            authorizeHttpRequests.requestMatchers("/design", "/orders").authenticated();
+            authorizeHttpRequests.requestMatchers("/**").permitAll();
+        });
+
+        http.formLogin(formLogin -> formLogin.loginPage("/login"));
+        http.oauth2Login(oauth2Login -> oauth2Login.loginPage("/login"));
+        http.logout(logout -> logout.logoutSuccessUrl("/"));
+
         return http.build();
     }
 }

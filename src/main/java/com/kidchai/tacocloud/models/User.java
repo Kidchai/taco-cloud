@@ -1,9 +1,6 @@
 package com.kidchai.tacocloud.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Data
+@Table(name="users")
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
 public class User implements UserDetails {
