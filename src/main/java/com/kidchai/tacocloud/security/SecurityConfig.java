@@ -5,7 +5,7 @@ import com.kidchai.tacocloud.models.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,10 +18,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    public interface UserDetailsService {
-        UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
-    }
-
     @Bean
     public UserDetailsService userDetailsService(UserRepository userRepo) {
         return username -> {
@@ -31,19 +27,23 @@ public class SecurityConfig {
         };
     }
 
-
     @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
-        http.authorizeHttpRequests(authorizeHttpRequests -> {
-            authorizeHttpRequests.requestMatchers("/design", "/orders").authenticated();
-            authorizeHttpRequests.requestMatchers("/**").permitAll();
-        });
-
-        http.formLogin(formLogin -> formLogin.loginPage("/login"));
-        http.oauth2Login(oauth2Login -> oauth2Login.loginPage("/login"));
-        http.logout(logout -> logout.logoutSuccessUrl("/"));
-
-        return http.build();
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+                .authorizeRequests()
+                    .mvcMatchers("/design", "/orders").authenticated()
+                    .anyRequest().permitAll()
+                    .and()
+                .formLogin()
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/design")
+                    .and()
+                .oauth2Login()
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/design")
+                    .and()
+                .logout()
+                    .and()
+                    .build();
     }
 }
