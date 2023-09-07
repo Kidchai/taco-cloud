@@ -31,7 +31,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeRequests()
-                    .mvcMatchers("/design", "/orders").authenticated()
+                    .antMatchers("/design", "/orders").access("hasRole('USER')")
                     .anyRequest().permitAll()
                     .and()
                 .formLogin()
