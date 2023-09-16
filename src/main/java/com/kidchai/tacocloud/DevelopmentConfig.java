@@ -33,8 +33,8 @@ public class DevelopmentConfig {
             repo.save(new Ingredient("SLSA", "Salsa", Type.SAUCE));
             repo.save(new Ingredient("SRCR", "Sour Cream", Type.SAUCE));
 
-            userRepo.save(new User("kidchai", encoder.encode("password"),
-                    "Olesya Naibova", "123 North Street", "Cross Roads", "IL",
+            userRepo.save(new User("user", encoder.encode("password"),
+                    "Ann Finch", "123 North Street", "Cross Roads", "IL",
                     "32464", "123-123-1234"));
         };
     }
