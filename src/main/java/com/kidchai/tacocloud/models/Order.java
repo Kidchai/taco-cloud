@@ -17,7 +17,7 @@ import java.util.List;
 
 @Data
 @Document(collection="orders")
-public class TacoOrder implements Serializable {
+public class Order implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id

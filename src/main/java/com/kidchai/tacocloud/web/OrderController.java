@@ -1,7 +1,6 @@
 package com.kidchai.tacocloud.web;
 
-import com.kidchai.tacocloud.data.UserRepository;
-import com.kidchai.tacocloud.models.TacoOrder;
+import com.kidchai.tacocloud.models.Order;
 import com.kidchai.tacocloud.data.OrderRepository;
 import com.kidchai.tacocloud.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
-import java.security.Principal;
 
 @Controller
 @RequestMapping("/orders")
@@ -35,7 +33,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public String processOrder(@Valid TacoOrder order, Errors errors,
+    public String processOrder(@Valid Order order, Errors errors,
                                SessionStatus sessionStatus,
                                @AuthenticationPrincipal User user) {
         if (errors.hasErrors())

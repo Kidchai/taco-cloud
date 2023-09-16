@@ -3,8 +3,8 @@ package com.kidchai.tacocloud.web;
 
 import com.kidchai.tacocloud.models.Ingredient;
 import com.kidchai.tacocloud.models.Ingredient.Type;
+import com.kidchai.tacocloud.models.Order;
 import com.kidchai.tacocloud.models.Taco;
-import com.kidchai.tacocloud.models.TacoOrder;
 import com.kidchai.tacocloud.data.IngredientRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +40,8 @@ public class DesignTacoController {
     }
 
     @ModelAttribute(name = "tacoOrder")
-    public TacoOrder order() {
-        return new TacoOrder();
+    public Order order() {
+        return new Order();
     }
 
     @ModelAttribute(name = "taco")
@@ -56,11 +56,11 @@ public class DesignTacoController {
 
     @PostMapping
     public String processTaco(@Valid Taco taco, Errors errors,
-                              @ModelAttribute TacoOrder tacoOrder) {
+                              @ModelAttribute Order order) {
         if (errors.hasErrors())
             return "design";
 
-        tacoOrder.addTaco(taco);
+        order.addTaco(taco);
         log.info("Processing taco: {}", taco);
         return "redirect:/orders/current";
     }
