@@ -1,7 +1,11 @@
 package com.kidchai.tacocloud.models;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.rest.core.annotation.RestResource;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -9,7 +13,12 @@ import java.util.Date;
 import java.util.List;
 
 @Data
+@RestResource(rel = "tacos", path = "tacos")
 public class Taco {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private String id;
 
     @NotNull
     @Size(min = 3, message = "Name must be at least 3 characters long")
