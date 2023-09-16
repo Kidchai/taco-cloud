@@ -21,7 +21,7 @@ public class TacoController {
         this.tacoRepo = tacoRepo;
     }
 
-    @GetMapping()
+    @GetMapping(produces = "application/json")
     public Iterable<Taco> getAllTacos() {
         return tacoRepo.findAll();
     }
@@ -33,10 +33,9 @@ public class TacoController {
                 .orElseGet(() -> new ResponseEntity<>(null, HttpStatus.NOT_FOUND));
     }
 
-
-
     @PostMapping(consumes="application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public Taco postTaco(@RequestBody Taco taco) {
-        return tacoRepo.save(taco); }
+        return tacoRepo.save(taco);
+    }
 }
