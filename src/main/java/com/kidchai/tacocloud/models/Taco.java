@@ -2,7 +2,6 @@ package com.kidchai.tacocloud.models;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +12,6 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@RestResource(rel = "tacos", path = "tacos")
 public class Taco {
 
     @Id
