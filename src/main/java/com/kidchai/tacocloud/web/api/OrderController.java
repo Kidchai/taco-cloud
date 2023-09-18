@@ -21,12 +21,12 @@ public class OrderController {
     }
 
     @GetMapping(path = "/{orderId}", produces = "application/json")
-    public Order getOrder(@PathVariable("orderId") Long orderId) {
+    public Order orderById(@PathVariable("orderId") Long orderId) {
         return orderRepo.findById(orderId).get();
     }
 
     @GetMapping(produces = "application/json")
-    public Iterable<Order> getAllOrders() {
+    public Iterable<Order> allOrders() {
         return orderRepo.findAll();
     }
 

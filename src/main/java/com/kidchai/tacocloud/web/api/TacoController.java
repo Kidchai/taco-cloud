@@ -22,7 +22,7 @@ public class TacoController {
     }
 
     @GetMapping(produces = "application/json")
-    public Iterable<Taco> getAllTacos() {
+    public Iterable<Taco> allTacos() {
         return tacoRepo.findAll();
     }
 
